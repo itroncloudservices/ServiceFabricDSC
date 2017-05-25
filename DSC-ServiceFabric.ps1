@@ -28,7 +28,7 @@
             }
             SetScript = 
             { 
-                $NTPServers = "time.windows.com,0x9"
+                $NTPServers = "1.pool.ntp.org,2.pool.ntp.org"
         	    write-warning "INFO : Configure NTP Service with param : $NTPServers"
 			    w32tm /configure /manualpeerlist:$NTPServers /syncfromflags:manual /update
                 if ((Get-Service -name W32Time).status -eq "Running" -eq $true)
@@ -42,7 +42,7 @@
             }
             TestScript=
             {
-                $NTPServers = "time.windows.com,0x9"
+                $NTPServers = "1.pool.ntp.org,2.pool.ntp.org"
                 $res = w32tm /query /peers
                 $groups = ([regex]::Match($res,'Peer: (\S*)')).Groups
                 if ($groups.Count -eq 2 -And $groups[1].Value -eq $NTPServers)
