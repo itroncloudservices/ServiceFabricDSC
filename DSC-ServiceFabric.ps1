@@ -27,13 +27,11 @@
             { 
                 write-warning "INFO : Setting NTP info"
                 REG ADD HKLM\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\VMICTimeProvider /v Enabled /t REG_DWORD /d 0 /f 
-                REM Set the service
                 W32TM /config /manualpeerlist:"time.windows.com,0x9" /syncfromflags:MANUAL /update
                 
                 REG ADD HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config /v MinPollInterval /t REG_DWORD /d 8 /f 
                 REG ADD HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config /v MaxPollInterval /t REG_DWORD /d 10 /f 
                 
-                REM Windows Time Restart Service
                 NET STOP W32TIME
                 NET START W32TIME
                 w32tm /resync 
