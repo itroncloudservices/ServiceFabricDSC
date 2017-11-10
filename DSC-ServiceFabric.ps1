@@ -14,7 +14,7 @@
                 $groups = ([regex]::Match($res,'Peer: (\S*)')).Groups
                 if ($groups.Count -eq 2)
                 {
-                    write-warning "GetScript " $groups[1].Value
+                    write-warning "GetScript $($groups[1].Value)"
                     return @{Result = $groups[1].Value};
                 }
                 else
